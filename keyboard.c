@@ -52,11 +52,10 @@ int main (void) {
   GlobalInterruptEnable();
 
   int x = 0;
-  for(;;) {
+  for(;;x++) {
     /* HID_Task(); */
     /* USB_USBTask(); */
-    x++;
-    if(x % (int) 5e8 < 2.5e8) PORTD ^= (1 << 7);
+    if((x % 8000000) < 4000000) { PORTD ^= (1 << 7); }
   }
 
   return 0;
