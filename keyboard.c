@@ -51,11 +51,10 @@ int main (void) {
   SetupHardware();
   GlobalInterruptEnable();
 
-  int x = 0;
-  for(;;x++) {
+  for(int x = 0; true; x++) {
     /* HID_Task(); */
     /* USB_USBTask(); */
-    if((x % 8000000) < 4000000) { PORTD ^= (1 << 7); }
+    if ((x % 800000) < 400000) { PORTD ^= (1 << 7); }
   }
 
   return 0;
