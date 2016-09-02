@@ -54,7 +54,7 @@ int main (void) {
   for(int x = 0; true; x++) {
     /* HID_Task(); */
     /* USB_USBTask(); */
-    if ((x % 80000) < 40000) { PORTD ^= (1 << 7); }
+    if ((x % 8000) < 4000) { PORTD ^= (1 << 7); }
   }
 
   return 0;
