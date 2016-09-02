@@ -53,8 +53,8 @@ int main (void) {
 
   int x = 0;
   for(;;) {
-    HID_Task();
-    USB_USBTask();
+    /* HID_Task(); */
+    /* USB_USBTask(); */
     x++;
     if(x % (int) 5e8 < 2.5e8) PORTD ^= (1 << 7);
   }
