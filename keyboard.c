@@ -47,7 +47,13 @@ static uint16_t IdleCount = 500;
  *    */
 static uint16_t IdleMSRemaining = 0;
 
+#define LED_SET 1 << 7
+
 int main (void) {
+  while(1) {
+    PORTD ^= LED_SET;
+    _delay_ms(100);
+  }
   SetupHardware();
   GlobalInterruptEnable();
 
