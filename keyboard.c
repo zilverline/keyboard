@@ -51,10 +51,9 @@ int main (void) {
   SetupHardware();
   GlobalInterruptEnable();
 
-  for(int x = 0; true; x++) {
-    /* HID_Task(); */
-    /* USB_USBTask(); */
-    if ((x % 8000) < 4000) { PORTD ^= (1 << 7); }
+  for(;;) {
+    HID_Task();
+    USB_USBTask();
   }
 
   return 0;
@@ -64,6 +63,12 @@ void SetupHardware () {
   /* Disable watchdog if enabled by bootloader/fuses */
   MCUSR &= ~(1 << WDRF);
   wdt_disable();
+
+  // Flash indicator LED for 2 seconds on boot
+  PORTD = (1 << 7);
+  _delay_ms(1000);
+  PORTD = 0;
+  _delay_ms(1000);
 
   /* Disable clock division */
   clock_prescale_set(clock_div_1);
@@ -100,6 +105,8 @@ void HID_Task() {
  *   */
 void EVENT_USB_Device_Connect(void)
 {
+  // Turn on indicator LED when we have connected
+  PORTD = (1 << 7);
   /* Default to report protocol on connect */
   UsingReportProtocol = true;
 }
@@ -109,6 +116,7 @@ void EVENT_USB_Device_Connect(void)
  *   */
 void EVENT_USB_Device_Disconnect(void)
 {
+  PORTD = 0;
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This is fired when the host sets the current configuration
