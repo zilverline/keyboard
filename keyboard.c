@@ -64,14 +64,14 @@ void SetupHardware () {
   MCUSR &= ~(1 << WDRF);
   wdt_disable();
 
+  /* Disable clock division */
+  clock_prescale_set(clock_div_1);
+
   // Flash indicator LED for 2 seconds on boot
   PORTD = (1 << 7);
   _delay_ms(1000);
   PORTD = 0;
   _delay_ms(1000);
-
-  /* Disable clock division */
-  clock_prescale_set(clock_div_1);
 
   USB_Init();
   Buttons_Init();
