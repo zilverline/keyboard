@@ -54,6 +54,7 @@ int main (void) {
   for(;;) {
     HID_Task();
     USB_USBTask();
+    PORTD ^= (1 << 7);
   }
 
   return 0;
